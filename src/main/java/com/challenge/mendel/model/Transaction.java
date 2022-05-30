@@ -36,7 +36,7 @@ public class Transaction {
         return parentId;
     }
 
-    public void setParentId(Long parentId) {
+    public void setParentId(long parentId) {
         this.parentId = parentId;
     }
 }

@@ -4,5 +4,5 @@ import com.challenge.mendel.model.Transaction;
 
 public interface TransactionService {
 
-    Transaction createTransaction(Transaction transaction);
+    Transaction createTransaction(Transaction transaction) throws Exception;
 }
