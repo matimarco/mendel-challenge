@@ -23,7 +23,7 @@ class MendelApplicationTests {
 	}
 
 	@Test
-	public void createTransactionTest() throws Exception {
+	public void createSuccessTransactionTest() throws Exception {
 		transaction.setTransactionId(1);
 		transaction.setAmount(5000);
 		transaction.setType("CARS");
@@ -32,5 +32,13 @@ class MendelApplicationTests {
 		Assert.notEmpty(transactions, "List Record Created !!");
 
 	}
+
+	@Test
+	public void getAllTransactionsTest() throws Exception {
+		createSuccessTransactionTest();
+		transactionService.getAllTransactions();
+		Assert.notEmpty(transactions, "Success !!");
+	}
+
 
 }

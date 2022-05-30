@@ -21,6 +21,11 @@ public class TransactionServiceImpl implements TransactionService {
         return saveTransaction(transaction);
     }
 
+    @Override
+    public List<Transaction> getAllTransactions() {
+        return transactions;
+    }
+
     public Transaction saveTransaction(Transaction transaction) throws Exception {
         try {
             transaction.setTransactionId(Helper.getGeneratedLong());
