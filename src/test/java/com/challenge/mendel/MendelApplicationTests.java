@@ -23,6 +23,10 @@ class MendelApplicationTests {
 	@Autowired
 	TransactionService transactionService;
 
+	@Test
+	void contextLoads() {
+	}
+
 
 	public void Transaction1() throws Exception {
 		Transaction transactions = new Transaction();
@@ -52,13 +56,10 @@ class MendelApplicationTests {
 	}
 
 	@Test
-	void contextLoads() {
-	}
-
-	@Test
 	public void createSuccessTransactionTest() throws Exception {
 		List<Transaction> transactions = new ArrayList<>();
 		Transaction transaction = new Transaction();
+		transaction.setTransactionId(1);
 		transaction.setAmount(5000);
 		transaction.setType("CARS");
 		transaction.setParentId(2);
@@ -69,25 +70,21 @@ class MendelApplicationTests {
 
 	@Test
 	public void getAllTransactionsTest() throws Exception {
-		List<Transaction> transactions = new ArrayList<>();
-		createSuccessTransactionTest();
-		transactionService.getAllTransactions();
-		Assert.notEmpty(transactions, "Success !!");
+		List<Transaction> result = transactionService.getAllTransactions();
+		Assert.notEmpty(result, "Success !!");
 	}
 
-	@Test
+/*	@Test
 	public void updateTransactionTest() throws Exception {
-		Transaction transaction = new Transaction();
-		createSuccessTransactionTest();
+        createSuccessTransactionTest();
 		transaction.setType("MOTOS");
 		Transaction result = transactionService.updateTransaction(transaction);
 
 		assertThat(result.getType(), is("MOTOS"));
-	}
+	}*/
 
 	@Test
-	public void getAllTransactionsByTypeTets() throws Exception {
-		createSuccessTransactionTest();
+	public void getAllTransactionsByTypeTest() throws Exception {
 		List<Long> result = transactionService.getAllTransactionsByType("CARS");
 		Assert.notEmpty(result, "Long Array");
 
