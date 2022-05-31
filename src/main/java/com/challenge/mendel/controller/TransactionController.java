@@ -32,4 +32,9 @@ public class TransactionController {
         return ResponseEntity.ok().body(transactionService.updateTransaction(transaction));
     }
 
+    @GetMapping("/transactions/types/{type}")
+    public ResponseEntity<List<Long>> getAllTransactionsByType(@PathVariable String type) {
+        return ResponseEntity.ok().body(transactionService.getAllTransactionsByType(type));
+    }
+
 }

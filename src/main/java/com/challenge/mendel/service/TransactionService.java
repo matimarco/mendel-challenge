@@ -11,4 +11,6 @@ public interface TransactionService {
     List<Transaction> getAllTransactions();
 
     Transaction updateTransaction(Transaction transaction);
+
+    List<Long> getAllTransactionsByType(String type);
 }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,6 +48,13 @@ public class TransactionServiceImpl implements TransactionService {
             throw new ResourceNotFoundException("Transaction not found with id "+ transaction.getTransactionId());
         }
     }
+
+    public List<Long> getAllTransactionsByType(String type) {
+        return transactions.stream().filter(x -> type.equalsIgnoreCase(x.getType())).mapToLong(Transaction::getTransactionId)
+                .boxed()
+                .collect(Collectors.toList());
+    }
+
 
     public Transaction saveTransaction(Transaction transaction) throws Exception {
         try {

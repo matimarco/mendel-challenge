@@ -11,6 +11,7 @@ import org.springframework.test.context.event.annotation.BeforeTestClass;
 import org.springframework.util.Assert;
 
 import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertThat;
 
 import java.util.ArrayList;
@@ -62,6 +63,14 @@ class MendelApplicationTests {
 		Transaction result = transactionService.updateTransaction(transaction);
 
 		assertThat(result.getType(), is("MOTOS"));
+	}
+
+	@Test
+	public void getAllTransactionsByTypeTets() throws Exception {
+		createSuccessTransactionTest();
+		List<Long> result = transactionService.getAllTransactionsByType("CARS");
+		Assert.notEmpty(result, "Long Array");
+
 	}
 
 
