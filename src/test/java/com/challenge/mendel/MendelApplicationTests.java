@@ -22,17 +22,33 @@ class MendelApplicationTests {
 
 	@Autowired
 	TransactionService transactionService;
-	Transaction transaction = new Transaction();
-	List<Transaction> transactions = new ArrayList<>();
 
 
-	public Transaction firstTransaction() {
-		transaction.setTransactionId(1);
-		transaction.setAmount(1000);
-		transaction.setType("SHOPPING");
-		transaction.setParentId(1);
-		transactions.add(transaction);
-		return transaction;
+	public void Transaction1() throws Exception {
+		Transaction transactions = new Transaction();
+		transactions.setTransactionId(10);
+		transactions.setAmount(5000);
+		transactions.setType("cars");
+		transactions.setParentId(0);
+		transactionService.createTransaction(transactions);
+	}
+
+	public void Transaction2() throws Exception {
+		Transaction transactions = new Transaction();
+		transactions.setTransactionId(11);
+		transactions.setAmount(10000);
+		transactions.setType("shopping");
+		transactions.setParentId(10);
+		transactionService.createTransaction(transactions);
+	}
+
+	public void Transaction3() throws Exception {
+		Transaction transactions = new Transaction();
+		transactions.setTransactionId(12);
+		transactions.setAmount(5000);
+		transactions.setType("shopping");
+		transactions.setParentId(11);
+		transactionService.createTransaction(transactions);
 	}
 
 	@Test
@@ -41,6 +57,8 @@ class MendelApplicationTests {
 
 	@Test
 	public void createSuccessTransactionTest() throws Exception {
+		List<Transaction> transactions = new ArrayList<>();
+		Transaction transaction = new Transaction();
 		transaction.setAmount(5000);
 		transaction.setType("CARS");
 		transaction.setParentId(2);
@@ -51,6 +69,7 @@ class MendelApplicationTests {
 
 	@Test
 	public void getAllTransactionsTest() throws Exception {
+		List<Transaction> transactions = new ArrayList<>();
 		createSuccessTransactionTest();
 		transactionService.getAllTransactions();
 		Assert.notEmpty(transactions, "Success !!");
@@ -58,6 +77,7 @@ class MendelApplicationTests {
 
 	@Test
 	public void updateTransactionTest() throws Exception {
+		Transaction transaction = new Transaction();
 		createSuccessTransactionTest();
 		transaction.setType("MOTOS");
 		Transaction result = transactionService.updateTransaction(transaction);
@@ -70,6 +90,21 @@ class MendelApplicationTests {
 		createSuccessTransactionTest();
 		List<Long> result = transactionService.getAllTransactionsByType("CARS");
 		Assert.notEmpty(result, "Long Array");
+
+	}
+
+	@Test
+	public void getSumTransactionsByParentTest1() throws Exception {
+		Transaction1();
+		Transaction2();
+		Transaction3();
+		Double result = transactionService.getSumTransactionsByParent(10);
+
+		assertThat(result.toString(), is("20000.0"));
+
+		Double result1 = transactionService.getSumTransactionsByParent(11);
+
+		assertThat(result1.toString(), is("15000.0"));
 
 	}
 

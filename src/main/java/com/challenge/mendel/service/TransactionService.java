@@ -10,7 +10,9 @@ public interface TransactionService {
 
     List<Transaction> getAllTransactions();
 
-    Transaction updateTransaction(Transaction transaction);
+    Transaction updateTransaction(Transaction transaction) throws Exception;
 
     List<Long> getAllTransactionsByType(String type);
+
+    Double getSumTransactionsByParent(long transactionId);
 }

@@ -27,7 +27,7 @@ public class TransactionController {
     }
 
     @PutMapping("/transactions/{transactionId}")
-    public ResponseEntity<Transaction> updateTransaction(@PathVariable Long transactionId, @RequestBody Transaction transaction) {
+    public ResponseEntity<Transaction> updateTransaction(@PathVariable Long transactionId, @RequestBody Transaction transaction) throws Exception {
         transaction.setTransactionId(transactionId);
         return ResponseEntity.ok().body(transactionService.updateTransaction(transaction));
     }
@@ -35,6 +35,11 @@ public class TransactionController {
     @GetMapping("/transactions/types/{type}")
     public ResponseEntity<List<Long>> getAllTransactionsByType(@PathVariable String type) {
         return ResponseEntity.ok().body(transactionService.getAllTransactionsByType(type));
+    }
+
+    @GetMapping("/transactions/sum/{transactionId}")
+    public ResponseEntity<Double> getSumTransactionsByParent(@PathVariable long transactionId) {
+        return ResponseEntity.ok().body(transactionService.getSumTransactionsByParent(transactionId));
     }
 
 }

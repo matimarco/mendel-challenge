@@ -7,6 +7,15 @@ public class Transaction {
     private String type;
     private long parentId;
 
+    public Transaction() {
+    }
+
+    public Transaction(long transactionId, double amount, String type, long parentId) {
+        this.transactionId = transactionId;
+        this.amount = amount;
+        this.type = type;
+        this.parentId = parentId;
+    }
 
     public long getTransactionId() {
         return transactionId;
