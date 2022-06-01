@@ -1,6 +1,5 @@
 package com.challenge.mendel.service;
 
-import com.challenge.mendel.Helper.Helper;
 import com.challenge.mendel.exception.ResourceNotFoundException;
 import com.challenge.mendel.model.Transaction;
 import org.springframework.stereotype.Service;
@@ -57,19 +56,18 @@ public class TransactionServiceImpl implements TransactionService {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Metodo sin Finalizar, problemente deberia cambiar mi lista a un HASHMAP,
+     * para que sea mas simple la recurisividad en la busqueda de los Parents)
+     */
     public Double getSumTransactionsByParent(long transactionId) {
-
         double acum = 0;
-        List<Transaction> result = transactions.stream()
-                .sorted(Comparator.comparingLong(Transaction::getTransactionId))
-                .collect(Collectors.toList());
-        for(Transaction trans : result) {
-            if(transactionId == trans.getTransactionId())
+        List<Long> listParents = new ArrayList<>();
+        for(Transaction trans : transactions) {
+            if(trans.getParentId() == null) {
                 acum += trans.getAmount();
-            if(transactionId == trans.getParentId()){
-                acum+=trans.getAmount();
-                transactionId = trans.getTransactionId();
             }
+
         }
         return acum;
     }
@@ -77,7 +75,6 @@ public class TransactionServiceImpl implements TransactionService {
 
     public Transaction saveTransaction(Transaction transaction) throws Exception {
         try {
-            //transaction.setTransactionId(Helper.getGeneratedLong());
             Optional<Transaction> transactionList = findTransactionById(transaction);
             if(transactionList.isPresent()) {
                 LOGGER.error("The Transaction Exist ");

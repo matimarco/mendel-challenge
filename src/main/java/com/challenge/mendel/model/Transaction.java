@@ -5,7 +5,17 @@ public class Transaction {
     private long transactionId;
     private double amount;
     private String type;
-    private long parentId;
+    private Long parentId;
+
+    public Transaction() {
+    }
+
+    public Transaction(long transactionId, double amount, String type, Long parentId) {
+        this.transactionId = transactionId;
+        this.amount = amount;
+        this.type = type;
+        this.parentId = parentId;
+    }
 
     public long getTransactionId() {
         return transactionId;
@@ -31,11 +41,11 @@ public class Transaction {
         this.type = type;
     }
 
-    public long getParentId() {
+    public Long getParentId() {
         return parentId;
     }
 
-    public void setParentId(long parentId) {
+    public void setParentId(Long parentId) {
         this.parentId = parentId;
     }
 }
